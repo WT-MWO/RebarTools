@@ -7,7 +7,7 @@ using RebarUTools.Utilities;
 namespace RebarUTools.Commands
 {
     [Transaction(TransactionMode.Manual)]
-    internal class UnobscureRebars : IExternalCommand
+    internal class ObscureRebars : IExternalCommand
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
@@ -15,7 +15,7 @@ namespace RebarUTools.Commands
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             var selector = new RebarSelector(document, uidoc);
             IEnumerable<Element> rebars = selector.GetAllRebars();
-            bool x = true;
+            bool x = false;
             View view = document.ActiveView;
 
             using (Transaction transaction = new Transaction(document, "Unobscure bars"))
