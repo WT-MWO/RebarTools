@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <None Remove="RebarUTools.addin" />
+    <None Remove="Resources\get_mass.png" />
+    <None Remove="Resources\obscure.png" />
     <None Remove="Resources\unobscure.png" />
   </ItemGroup>
 
@@ -37,7 +39,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\unobscure.png" />
+    <Resource Include="Resources\get_mass.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\obscure.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\unobscure.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

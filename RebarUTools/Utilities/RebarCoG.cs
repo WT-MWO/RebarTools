@@ -3,9 +3,10 @@ using Autodesk.Revit.DB;
 
 namespace RebarUTools.Utilities
 {
-    internal class RebarCoG(FilteredElementCollector rebarCollector)
+    internal class RebarCoG(List<Element> rebarCollector)
     {
-        private const double FEET_TO_MM = 304.8; // Conversion from feet to mm
+        //private const double FEET_TO_MM = 304.8; // Conversion from feet to mm
+        private const double steel_density = 222.2872457472; // kg per feet^3 equivalent to 7850 kg/m^3
         private readonly MultiplanarOption multiplanarOption = MultiplanarOption.IncludeAllMultiplanarCurves;
 
         private static bool IsRebarGroup(Rebar rebar)
@@ -15,21 +16,21 @@ namespace RebarUTools.Utilities
 
         private static (List<double>, double) ComputeSegmentCentroid(Curve curve, double diameter, int index)
         {
-            double density = 7.85e-6; // kg/mm3
-            double radius = diameter / 2; //mm
-            double area = Math.PI * Math.Pow(radius, 2);
-            double length = curve.Length * FEET_TO_MM;
-            double volume = area * length;
-            double mass = volume * density;
+            //double density = 7.85e-6; // kg/mm3
+            double radius = diameter / 2; // ft
+            double area = Math.PI * Math.Pow(radius, 2); // ft^2
+            double length = curve.Length; // ft
+            double volume = area * length; // ft^3
+            double mass = volume * steel_density; // kg
 
             if (curve is Line line)
             {
-                double spX = line.GetEndPoint(0).X * FEET_TO_MM;
-                double spY = line.GetEndPoint(0).Y * FEET_TO_MM;
-                double spZ = line.GetEndPoint(0).Z * FEET_TO_MM;
-                double epX = line.GetEndPoint(1).X * FEET_TO_MM;
-                double epY = line.GetEndPoint(1).Y * FEET_TO_MM;
-                double epZ = line.GetEndPoint(1).Z * FEET_TO_MM;
+                double spX = line.GetEndPoint(0).X;
+                double spY = line.GetEndPoint(0).Y;
+                double spZ = line.GetEndPoint(0).Z;
+                double epX = line.GetEndPoint(1).X;
+                double epY = line.GetEndPoint(1).Y;
+                double epZ = line.GetEndPoint(1).Z;
 
                 double cpX = (spX + epX) / 2;
                 double cpY = (spY + epY) / 2;
@@ -40,20 +41,20 @@ namespace RebarUTools.Utilities
 
             if (curve is Arc arc)
             {
-                double arcRadius = arc.Radius * FEET_TO_MM;
-                double arcCenterX = arc.Center.X * FEET_TO_MM;
-                double arcCenterY = arc.Center.Y * FEET_TO_MM;
-                double arcCenterZ = arc.Center.Z * FEET_TO_MM;
-
+                double arcRadius = arc.Radius;
+                double arcCenterX = arc.Center.X;
+                double arcCenterY = arc.Center.Y;
+                double arcCenterZ = arc.Center.Z;
+                //calculating midpoint of Arc
                 XYZ midpoint = arc.Evaluate(0.5, true);
-                double mpX = midpoint.X * FEET_TO_MM;
-                double mpY = midpoint.Y * FEET_TO_MM;
-                double mpZ = midpoint.Z * FEET_TO_MM;
-
+                double mpX = midpoint.X;
+                double mpY = midpoint.Y;
+                double mpZ = midpoint.Z;
+                //calculate 'x' coordinate of centroid for arc
                 double theta = length / (2 * Math.PI * arcRadius) * 360;
                 double alpha = Math.PI * theta / 360;
                 double p = (2 * Math.Sin(alpha) / (3 * alpha)) * (Math.Pow(arcRadius + radius, 3) - Math.Pow(arcRadius - radius, 3)) / (Math.Pow(arcRadius + radius, 2) - Math.Pow(arcRadius - radius, 2));
-
+                //calculate a line vector and unit vector between center and midpoint
                 double vectorX = mpX - arcCenterX;
                 double vectorY = mpY - arcCenterY;
                 double vectorZ = mpZ - arcCenterZ;
@@ -64,7 +65,7 @@ namespace RebarUTools.Utilities
                 double unitX = vectorX / vectorLength;
                 double unitY = vectorY / vectorLength;
                 double unitZ = vectorZ / vectorLength;
-
+                //centroid point
                 double cpX = arcCenterX + p * unitX;
                 double cpY = arcCenterY + p * unitY;
                 double cpZ = arcCenterZ + p * unitZ;
@@ -92,7 +93,7 @@ namespace RebarUTools.Utilities
         private static double GetRebarDiameter(Rebar rebar)
         {
             Parameter diamParam = rebar.LookupParameter("Bar Diameter");
-            return diamParam.AsDouble() * FEET_TO_MM;
+            return diamParam.AsDouble(); //ft
         }
 
         private static List<int> GetExistingBarIndexes(Rebar rebar)
@@ -102,9 +103,15 @@ namespace RebarUTools.Utilities
 
         private List<Curve> GetCurveFromGroup(Rebar rebar, int index)
         {
-            return rebar.DistributionType == DistributionType.Uniform || rebar.DistributionType == DistributionType.VaryingLength
-                ? rebar.GetTransformedCenterlineCurves(false, false, false, multiplanarOption, index)
-                : rebar.GetCenterlineCurves(false, false, false, multiplanarOption, index);
+            if (rebar.HasVariableLengthBars) //This needs to be tested if fully substitutes UNIFORM distribution type
+            {
+                return (List<Curve>)rebar.GetTransformedCenterlineCurves(false, false, false, multiplanarOption, index);
+            }
+            else
+            { 
+                return (List<Curve>)rebar.GetCenterlineCurves(false, false, false, multiplanarOption, index);
+            }
+
         }
 
         public (List<double>, double) GetCoG()

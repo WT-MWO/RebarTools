@@ -23,14 +23,35 @@ namespace RebarUTools
             // Create push button for Unobscure
             PushButtonData b1Data = new PushButtonData(
                 "cmdUnobscure",
-                "Unobscure all rebars",
+                "Unobscure bars",
                 thisAssemblyPath,
                 "RebarUTools.Commands.UnobscureRebars");
-
             PushButton pb1 = ribbonPanel.AddItem(b1Data) as PushButton;
             pb1.ToolTip = "Unobscure all rebars";
             BitmapImage pb1Image = new BitmapImage(new Uri("pack://application:,,,/RebarUTools;component/Resources/unobscure.png"));
             pb1.LargeImage = pb1Image;
+
+            // Create push button for Obscure
+            PushButtonData b2Data = new PushButtonData(
+                "cmdObscure",
+                "Obscure bars",
+                thisAssemblyPath,
+                "RebarUTools.Commands.ObscureRebars");
+            PushButton pb2 = ribbonPanel.AddItem(b2Data) as PushButton;
+            pb2.ToolTip = "Obscure bars";
+            BitmapImage pb2Image = new BitmapImage(new Uri("pack://application:,,,/RebarUTools;component/Resources/obscure.png"));
+            pb2.LargeImage = pb2Image;
+
+            // Create push button for GetMass
+            PushButtonData b3Data = new PushButtonData(
+                "cmdGetMass",
+                "Get mass",
+                thisAssemblyPath,
+                "RebarUTools.Commands.GetMass");
+            PushButton pb3 = ribbonPanel.AddItem(b3Data) as PushButton;
+            pb3.ToolTip = "Get mass of selected bars";
+            BitmapImage pb3Image = new BitmapImage(new Uri("pack://application:,,,/RebarUTools;component/Resources/get_mass.png"));
+            pb3.LargeImage = pb3Image;
         }
         public Result OnStartup(UIControlledApplication application)
         {
