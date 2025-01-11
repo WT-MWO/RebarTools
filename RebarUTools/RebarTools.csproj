@@ -9,14 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="RebarUTools.addin" />
     <None Remove="Resources\get_mass.png" />
     <None Remove="Resources\obscure.png" />
     <None Remove="Resources\unobscure.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="RebarUTools.addin">
+    <Content Include="RebarTools.addin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

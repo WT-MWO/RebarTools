@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.DB.Structure;
 using Autodesk.Revit.DB;
 
-namespace RebarUTools.Utilities
+namespace RebarTools.Utilities
 {
     internal class RebarCoG(List<Element> rebarCollector)
     {

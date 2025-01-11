@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RevitAddIns>
   <AddIn Type="Application">
-    <Name>RebarUTools</Name>
+    <Name>RebarTools</Name>
 	<VisibilityMode>AlwaysVisible</VisibilityMode>
-    <Assembly>RebarUTools.dll</Assembly>
+    <Assembly>RebarTools.dll</Assembly>
     <AddInId>4AB3C6CC-1EDD-4D9A-AD39-78D6C2749F09</AddInId>
-    <FullClassName>RebarUTools.Application</FullClassName>
+    <FullClassName>RebarTools.Application</FullClassName>
     <VendorId>Marcin Wolinski</VendorId>
   </AddIn>
 </RevitAddIns>

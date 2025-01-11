@@ -1,10 +1,10 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using RebarUTools.Utilities;
+using RebarTools.Utilities;
 
 
-namespace RebarUTools.Commands
+namespace RebarTools.Commands
 {
     [Transaction(TransactionMode.Manual)]
     internal class GetMass : IExternalCommand

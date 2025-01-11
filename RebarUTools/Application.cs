@@ -1,17 +1,17 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using RebarUTools.Commands;
+using RebarTools.Commands;
 using System.Windows.Media.Imaging;
 
 
-namespace RebarUTools
+namespace RebarTools
 {
     public class Application : IExternalApplication
     {
         static void AddRibbonPanel(UIControlledApplication application)
         {
             // Create a custom ribbon tab
-            String tabName = "RebarUTools";
+            String tabName = "RebarTools";
             application.CreateRibbonTab(tabName);
 
             // Add a new ribbon panel

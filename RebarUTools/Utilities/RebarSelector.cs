@@ -3,7 +3,7 @@ using Autodesk.Revit.DB.Structure;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 
-namespace RebarUTools.Utilities
+namespace RebarTools.Utilities
 {
     internal class RebarSelector(Document doc, UIDocument uidoc)
     {
