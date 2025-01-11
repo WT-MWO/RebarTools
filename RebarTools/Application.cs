@@ -25,10 +25,10 @@ namespace RebarTools
                 "cmdUnobscure",
                 "Unobscure bars",
                 thisAssemblyPath,
-                "RebarUTools.Commands.UnobscureRebars");
+                "RebarTools.Commands.UnobscureRebars");
             PushButton pb1 = ribbonPanel.AddItem(b1Data) as PushButton;
             pb1.ToolTip = "Unobscure all rebars";
-            BitmapImage pb1Image = new BitmapImage(new Uri("pack://application:,,,/RebarUTools;component/Resources/unobscure.png"));
+            BitmapImage pb1Image = new BitmapImage(new Uri("pack://application:,,,/RebarTools;component/Resources/unobscure.png"));
             pb1.LargeImage = pb1Image;
 
             // Create push button for Obscure
@@ -36,10 +36,10 @@ namespace RebarTools
                 "cmdObscure",
                 "Obscure bars",
                 thisAssemblyPath,
-                "RebarUTools.Commands.ObscureRebars");
+                "RebarTools.Commands.ObscureRebars");
             PushButton pb2 = ribbonPanel.AddItem(b2Data) as PushButton;
             pb2.ToolTip = "Obscure bars";
-            BitmapImage pb2Image = new BitmapImage(new Uri("pack://application:,,,/RebarUTools;component/Resources/obscure.png"));
+            BitmapImage pb2Image = new BitmapImage(new Uri("pack://application:,,,/RebarTools;component/Resources/obscure.png"));
             pb2.LargeImage = pb2Image;
 
             // Create push button for GetMass
@@ -47,10 +47,10 @@ namespace RebarTools
                 "cmdGetMass",
                 "Get mass",
                 thisAssemblyPath,
-                "RebarUTools.Commands.GetMass");
+                "RebarTools.Commands.GetMass");
             PushButton pb3 = ribbonPanel.AddItem(b3Data) as PushButton;
             pb3.ToolTip = "Get mass of selected bars";
-            BitmapImage pb3Image = new BitmapImage(new Uri("pack://application:,,,/RebarUTools;component/Resources/get_mass.png"));
+            BitmapImage pb3Image = new BitmapImage(new Uri("pack://application:,,,/RebarTools;component/Resources/get_mass.png"));
             pb3.LargeImage = pb3Image;
         }
         public Result OnStartup(UIControlledApplication application)
